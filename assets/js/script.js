@@ -11,6 +11,7 @@ var weatherAPI = "443fd44db44ccc0f0052388e64bdf96f";
 
 // add listener to submit button
 document.querySelector('#submit').addEventListener("click", searchCity);
+console.log(weatherAPI)
 
 
 //call weatherapi and find city and weather
@@ -32,7 +33,7 @@ function searchCity(event) {
                 console.log(data);
             });
     } else {
-        var cityURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityArray[0] + ','+cityArray[1]+ '&limit=5&appid=' + weatherAPI;
+        var cityURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityArray[0] + ',' + cityArray[1]+ '&limit=5&appid=' + weatherAPI;
         console.log(cityURL);
         fetch(cityURL)
             .then(function (response) {
@@ -50,6 +51,7 @@ function searchCity(event) {
     console.log(city);
     // if (city)
     var cityURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid='  + weatherAPI;
+    console.log(cityURL);
     fetch(cityURL)
         .then(function (response) {
             return response.json();
@@ -103,7 +105,7 @@ function getLatLong(city) {
 //submit weather request with lat and long
 function latLongWeatherRequest() {
     console.log(lat + "," + long);
-    var cityLatLongURL = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&units=imperial&appid=' +  + weatherAPI;
+    var cityLatLongURL = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&units=imperial&appid='  + weatherAPI;
     console.log(cityLatLongURL);
     fetch(cityLatLongURL)
         .then(function (response) {
