@@ -115,6 +115,42 @@ function latLongWeatherRequest() {
         .then(function (data) {
             console.log(data);
             lastFiveCity.push(data);
+            console.log(lastFiveCity)
             localStorage.setItem('fiveWeatherSearches', JSON.stringify(lastFiveCity));
-        });
+            for (let i = 0; i<5; i++) {
+                console.log(i)
+                var finalCityName = data.city.name
+                var date = moment(data.list[i].dt, 'X').format('dddd, MMMM Do YYYY');
+                var currentTemp= Math.round(data.list[i].main.temp);
+                console.log(currentTemp);
+                var minTemp= Math.round(data.list[i].main.temp_min);
+                console.log(data.list[0])
+                var maxTemp= Math.round(data.list[i].main.temp_max);
+                var humidity= data.list[i].main.humidity;
+                var windSpeed= data.list[i].wind.speed;
+                var windGust = data.list[i].wind.gust;
+                var chanceOfRain = (data.list[i].pop * 100);
+                var conditions = data.list[i].weather[0].main;
+                var conditionsIcon = data.list[i].weather[0].icon;
+                var feelsLike = Math.round(data.list[i].main.feels_like);
+                if (i===0) {
+                       document.getElementById('todayDate').textContent = finalCityName + ' on ' + date;
+                    document.getElementById('weatherDesc').textContent = "It's " + conditions + " and " + currentTemp + " degrees, although it feels like " + feelsLike + " degrees. There's currently a " + chanceOfRain + "% chance of rain. ";
+                    document.getElementById('windDesc').textContent = "Winds are at " + windSpeed + " MPH with gusts up to " + windGust + " MPH.";
+                    var minLi = document.createElement('li');
+                    minLi.textContent = "Low: " + minTemp + " degrees";
+                    document.getElementById('highsLows').appendChild(minLi);
+                    var maxLi = document.createElement('li');
+                    maxLi.textContent = "High: " + maxTemp + " degrees";
+                    document.getElementById('highsLows').appendChild(maxLi);
+                    var humid = document.createElement('li');
+                    humid.textContent = "Humidity: " + humidity ;
+                    document.getElementById('highsLows').appendChild(humid);
+                    document.getElementById('weatherIcon').style.backgroundImage = "url('http://openweathermap.org/img/wn/" + conditionsIcon + "@2x.png";
+
+                } else {
+
+                }
+        }; 
+    });
 }
