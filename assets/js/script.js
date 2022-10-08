@@ -6,7 +6,8 @@ var city = [];
 var cityName ='';
 var lat = 0;
 var long = 0;
-lastFiveCity =[];
+var lastFiveCity =[];
+var weatherAPI = "443fd44db44ccc0f0052388e64bdf96f";
 
 // add listener to submit button
 document.querySelector('#submit').addEventListener("click", searchCity);
@@ -18,7 +19,7 @@ function searchCity(event) {
     city = citySearch.value.trim();
     var cityArray = city.split(',');
     if (cityArray.length === 1) {
-        var cityURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityArray[0] + '&limit=5&appid=443fd44db44ccc0f0052388e64bdf96f';
+        var cityURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityArray[0] + '&limit=5&appid=' + weatherAPI;
         fetch(cityURL)
             .then(function (response) {
                 return response.json();
@@ -31,7 +32,7 @@ function searchCity(event) {
                 console.log(data);
             });
     } else {
-        var cityURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityArray[0] + ','+cityArray[1]+ '&limit=5&appid=443fd44db44ccc0f0052388e64bdf96f';
+        var cityURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityArray[0] + ','+cityArray[1]+ '&limit=5&appid=' + weatherAPI;
         console.log(cityURL);
         fetch(cityURL)
             .then(function (response) {
@@ -48,7 +49,7 @@ function searchCity(event) {
     console.log(cityArray);
     console.log(city);
     // if (city)
-    var cityURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid=443fd44db44ccc0f0052388e64bdf96f';
+    var cityURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid='  + weatherAPI;
     fetch(cityURL)
         .then(function (response) {
             return response.json();
@@ -102,7 +103,7 @@ function getLatLong(city) {
 //submit weather request with lat and long
 function latLongWeatherRequest() {
     console.log(lat + "," + long);
-    var cityLatLongURL = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&units=imperial&appid=443fd44db44ccc0f0052388e64bdf96f';
+    var cityLatLongURL = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&units=imperial&appid=' +  + weatherAPI;
     console.log(cityLatLongURL);
     fetch(cityLatLongURL)
         .then(function (response) {
@@ -111,5 +112,7 @@ function latLongWeatherRequest() {
         })
         .then(function (data) {
             console.log(data);
+            lastFiveCity.push(data);
+            localStorage.setItem('fiveWeatherSearches', JSON.stringify(lastFiveCity));
         });
 }
