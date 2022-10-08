@@ -127,26 +127,26 @@ function latLongWeatherRequest() {
                 console.log(data.list[0])
                 var maxTemp= Math.round(data.list[i].main.temp_max);
                 var humidity= data.list[i].main.humidity;
-                var windSpeed= data.list[i].wind.speed;
-                var windGust = data.list[i].wind.gust;
+                var windSpeed= Math.round(data.list[i].wind.speed);
+                var windGust = Math.round(data.list[i].wind.gust);
                 var chanceOfRain = (data.list[i].pop * 100);
                 var conditions = data.list[i].weather[0].main;
                 var conditionsIcon = data.list[i].weather[0].icon;
                 var feelsLike = Math.round(data.list[i].main.feels_like);
                 if (i===0) {
-                       document.getElementById('todayDate').textContent = finalCityName + ' on ' + date;
-                    document.getElementById('weatherDesc').textContent = "It's " + conditions + " and " + currentTemp + " degrees, although it feels like " + feelsLike + " degrees. There's currently a " + chanceOfRain + "% chance of rain. ";
+                       document.getElementById('todayDate').innerHTML = finalCityName + " on " + date + ".  <img src=" + "'http://openweathermap.org/img/wn/" + conditionsIcon + "@2x.png' alt='weather conditions'>";
+                    document.getElementById('weatherDesc').textContent = "It's " + conditions + " and " + currentTemp + " degrees, although it feels like " + feelsLike + " degrees. There's currently a " + chanceOfRain + "% chance of rain.";
                     document.getElementById('windDesc').textContent = "Winds are at " + windSpeed + " MPH with gusts up to " + windGust + " MPH.";
                     var minLi = document.createElement('li');
-                    minLi.textContent = "Low: " + minTemp + " degrees";
+                    minLi.innerHTML = "<strong>Low:</strong>  " + minTemp + " degrees";
                     document.getElementById('highsLows').appendChild(minLi);
                     var maxLi = document.createElement('li');
-                    maxLi.textContent = "High: " + maxTemp + " degrees";
+                    maxLi.innerHTML = "<strong>High:</strong>  " + maxTemp + " degrees";
                     document.getElementById('highsLows').appendChild(maxLi);
                     var humid = document.createElement('li');
-                    humid.textContent = "Humidity: " + humidity ;
+                    humid.innerHTML = "<strong>Humidity:</strong>  " + humidity  + "%";
                     document.getElementById('highsLows').appendChild(humid);
-                    document.getElementById('weatherIcon').style.backgroundImage = "url('http://openweathermap.org/img/wn/" + conditionsIcon + "@2x.png";
+                   
 
                 } else {
 
