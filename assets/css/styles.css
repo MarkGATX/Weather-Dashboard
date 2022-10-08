@@ -1,0 +1,28 @@
+/* variable */
+:root {
+    --darkCustom:#0c001d;
+    --lightCustom:#1d3b9f;
+}
+
+
+/* global */
+body {
+    color:var(--darkCustom) !important;
+}
+
+header {
+    background-image:linear-gradient(90deg, var(--lightCustom), var(--darkCustom));
+}
+
+/* Classes */
+.currentCard {
+    border:5px solid var(--lightCustom) !important;
+}
+
+.lightCustom {
+    background-color:var(--lightCustom);
+}
+
+.darkCustom {
+    background-color:var(--darkCustom);
+}

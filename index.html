@@ -9,32 +9,34 @@
         integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
     <title>Weather Dashboard</title>
 </head>
 
 <body>
 
-    <header class="bg-warning mb-6" style="height:100px;">
-        Test
+    <header class="d-flex mb-6 justify-content-end align-items-center" style="height:100px;">
+        <h1 class="text-light pr-5">Weather Dashboard</h1>
     </header>
 
     <main class="container-fluid ">
         <section class="row d-flex justify-content-between vh-100">
             <!-- Search -->
-            <section class="col-3 bg-secondary h-50" style="transform:skewY(15deg);">
+            <section class="col-3 h-50 lightCustom" style="transform:skewY(15deg);">
                 <form style="transform:skewY(-15deg);position:relative;top:50px;">
-                    <div class="form-group ">
-                        <label for="citySearchName">Search for a city:</label>
+                    <div class="form-group text-light">
+                        <label for="citySearchName">
+                            <h2>Search for a city:</h2></label>
                         <input type="text" class="form-control" id="citySearchName" aria-describedby="citySearchField">
                     </div>
                     <button type="submit" class="btn btn-primary">Search</button>
                 </form>
             </section>
 
-            <article class="col-9 bg-success pt-5">
+            <article class="col-9 pt-5">
                 <!-- Current conditions -->
                 <div class="col h-25 mb-5" >
-                    <div class="card-body border rounded h-100">
+                    <div class="card-body border rounded-lg h-100 currentCard">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
                             additional content. This content is a little bit longer.</p>
@@ -42,85 +44,70 @@
                     </div>
                 </div>
                 <!-- 5-day forecast -->
-                <section class="row d-flex justify-content-around h-50" >
+                <section class="row d-flex justify-content-around h-30 " >
                     <div class="col-12">
                         <h2>5-day forecast</h2>
                     </div>
 
-                    <div class="card col-2 " style="width: 18rem;">
+                    <div class="card col-2 text-light darkCustom h-50 pl-1 pr-1 pb-2" >
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">IMAGE</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">An item</li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">A third item</li>
+                            <li class="list-group-item darkCustom">An item</li>
+                            <li class="list-group-item darkCustom">A second item</li>
+                            <li class="list-group-item darkCustom">A third item</li>
                         </ul>
-                        <div class="card-body ">
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
+                        
                     </div>
-                    <div class="card col-2 " style="width: 18rem;">
+                    <div class="card col-2 text-light darkCustom h-50 pl-1 pr-1 pb-2">
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">IMAGE</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">An item</li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">A third item</li>
+                            <li class="list-group-item darkCustom">An item</li>
+                            <li class="list-group-item darkCustom">A second item</li>
+                            <li class="list-group-item darkCustom">A third item</li>
                         </ul>
-                        <div class="card-body">
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
+                        
                     </div>
-                    <div class="card col-2 " style="width: 18rem;">
+                    <div class="card col-2 text-light darkCustom h-50 pl-1 pr-1 pb-2" >
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">IMAGE</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">An item</li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">A third item</li>
+                            <li class="list-group-item darkCustom">An item</li>
+                            <li class="list-group-item darkCustom">A second item</li>
+                            <li class="list-group-item darkCustom">A third item</li>
                         </ul>
-                        <div class="card-body">
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
+                        
                     </div>
-                    <div class="card col-2 " style="width: 18rem;">
+                    <div class="card col-2 text-light darkCustom h-50 pl-1 pr-1 pb-2" >
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">IMAGE</p>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">An item</li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">A third item</li>
+                        <ul class="list-group list-group-flush ">
+                            <li class="list-group-item darkCustom">An item</li>
+                            <li class="list-group-item darkCustom">A second item</li>
+                            <li class="list-group-item darkCustom">A third item</li>
                         </ul>
-                        <div class="card-body">
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
+                        
                     </div>
-                    <div class="card col-2 " style="width: 18rem;">
+                    <div class="card col-2 text-light darkCustom h-50 pl-1 pr-1 pb-2" >
                         <div class="card-body overflow-auto">
                             <h5 class="card-title">Card title</h5>
                             <p class="card-text">IMAGE</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">An item</li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">A third item</li>
+                            <li class="list-group-item darkCustom">An item</li>
+                            <li class="list-group-item darkCustom">A second item</li>
+                            <li class="list-group-item darkCustom">A third item</li>
                         </ul>
-                        <div class="card-body">
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
+                        
 
 
                     </div>
