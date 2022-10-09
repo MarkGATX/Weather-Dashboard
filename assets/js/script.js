@@ -10,15 +10,24 @@ var long = 0;
 var weatherAPI = "443fd44db44ccc0f0052388e64bdf96f";
 
 // add listener to submit button
+console.log(document.querySelector('#submit'));
 document.querySelector('#submit').addEventListener("click", searchCity);
 
 //populate last 5 city searches and initialize local storage array if none present
-var fiveWeatherSearches = JSON.parse(localStorage.getItem("lastFiveCity"));
-if (fiveWeatherSearches === null) {
-    fiveWeatherSearches = [];
-    localStorage.setItem("lastFiveCity", JSON.stringify("fiveWeatherSearches"))
+var lastFiveCity = JSON.parse(localStorage.getItem("lastFiveCityLocal"));
+console.log(lastFiveCity)
+if (lastFiveCity === null) {
+    lastFiveCity = [];
+    localStorage.setItem("lastFiveCityLocal", JSON.stringify("LastFiveCity"))
 } else {
-    
+    for (let i = 0; i < lastFiveCity.length; i++) {
+        var pastSearchParent = document.querySelector('#pastSearches');
+        var pastButton = document.createElement('button');
+        pastButton.textContent = lastFiveCity[i][0];
+        pastButton.classList.add('w-100', 'pastSearchBtn', 'text-light', 'mb-2', 'p-2', 'rounded', 'font-weight-bold')
+        pastSearchParent.appendChild(pastButton);
+    }
+
 }
 
 
@@ -38,10 +47,10 @@ function searchCity(event) {
                     possibleCityList = data;
                     chooseCity(data);
                 }
-                
+
             });
     } else {
-        var cityURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityArray[0] + ',' + cityArray[1] + '&limit=5&appid=' + weatherAPI;      
+        var cityURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityArray[0] + ',' + cityArray[1] + '&limit=5&appid=' + weatherAPI;
         fetch(cityURL)
             .then(function (response) {
                 return response.json();
@@ -50,8 +59,8 @@ function searchCity(event) {
                 if (data.length > 1) {
                     possibleCityList = data;
                     chooseCity(data);
-            }
-        });
+                }
+            });
     }
     console.log(cityArray);
     console.log(city);
@@ -119,12 +128,35 @@ function latLongWeatherRequest() {
 
         })
         .then(function (data) {
-            console.log(data);
-            lastFiveCity.push([data.name, cityLatLongURL]);
+            console.log(lastFiveCity);
+            //check to see if duplicate name, add to beginning of array if undefined
+            if (lastFiveCity.includes(data.name) === false) {
+                
+                lastFiveCity.unshift([data.name, cityLatLongURL]);
+            } 
+            // if array > 5 then remove the last value
             if (lastFiveCity.length > 5) {
                 lastFiveCity.pop();
             }
-            localStorage.setItem('fiveWeatherSearches', JSON.stringify(lastFiveCity));
+            localStorage.setItem('lastFiveCityLocal', JSON.stringify(lastFiveCity));
+            var pastSearchParent = document.querySelector('#pastSearches');
+            var pastButton = document.createElement('button');
+
+            pastButton.textContent = data.name;
+            pastButton.classList.add('w-100', 'pastSearchBtn', 'text-light', 'mb-2', 'p-2', 'rounded', 'font-weight-bold');
+            var buttonListParent = document.getElementById('pastSearches');
+            //if at least 1 child li, add the next at the beginning of the list
+            if (buttonListParent.childElementCount > 0) {
+                pastSearchParent.insertBefore(pastButton, pastSearchParent.firstChild);
+            } else {
+                pastSearchParent.appendChild(pastButton)
+            }
+           
+            //remove button greater than 5 under search input
+            
+            if (buttonListParent.childElementCount > 5) {
+                buttonListParent.removeChild(buttonListParent.lastChild);
+            }
             // API arrays for 3hour forecasts
             // for (let i = 0; i < 6; i++) {
             //     console.log(data)
@@ -178,38 +210,39 @@ function latLongWeatherRequest() {
 
 
             //POPULATE THE CURRENT DAY WEATHER
-                    console.log(data)
-                   
-                    var finalCityName = data.name
-                    let date = moment(data.dt, 'X').format('dddd, MMMM Do YYYY');
-                    let currentTemp = Math.round(data.main.temp);  
-                    let minTemp = Math.round(data.main.temp_min);         
-                    let maxTemp = Math.round(data.main.temp_max);
-                    let humidity = data.main.humidity;
-                    let windSpeed = Math.round(data.wind.speed);
-                    let windGust = Math.round(data.wind.gust);
-                    
-                    let conditions = data.weather[0].description;
-                    let conditionsIcon = data.weather[0].icon;
-                    let feelsLike = Math.round(data.main.feels_like);
-                    let dateShort = moment(data.dt, 'X').format('ddd, MMM Do');
-                    console.log(dateShort)
-                   
-                        document.getElementById('todayDate').innerHTML = finalCityName + " on " + date + ".  <img src=" + "'http://openweathermap.org/img/wn/" + conditionsIcon + "@2x.png' alt='weather conditions'>";
-                        document.getElementById('weatherDesc').textContent = "It's " + conditions + " and " + currentTemp + " degrees, although it feels like " + feelsLike + " degrees.";
-                        document.getElementById('windDesc').textContent = "Winds are at " + windSpeed + " MPH with gusts up to " + windGust + " MPH.";
-                        var minLi = document.createElement('li');
-                        minLi.innerHTML = "<strong>Low:</strong>  " + minTemp + " degrees";
-                        document.getElementById('highsLows').appendChild(minLi);
-                        var maxLi = document.createElement('li');
-                        maxLi.innerHTML = "<strong>High:</strong>  " + maxTemp + " degrees";
-                        document.getElementById('highsLows').appendChild(maxLi);
-                        var humid = document.createElement('li');
-                        humid.innerHTML = "<strong>Humidity:</strong>  " + humidity + "%";
-                        document.getElementById('highsLows').appendChild(humid);
-    
+            console.log(data)
 
-                    });
+            var finalCityName = data.name
+            let date = moment(data.dt, 'X').format('dddd, MMMM Do YYYY');
+            let currentTemp = Math.round(data.main.temp);
+            let minTemp = Math.round(data.main.temp_min);
+            let maxTemp = Math.round(data.main.temp_max);
+            let humidity = data.main.humidity;
+            let windSpeed = Math.round(data.wind.speed);
+            let windGust = Math.round(data.wind.gust);
+
+            let conditions = data.weather[0].description;
+            let conditionsIcon = data.weather[0].icon;
+            let feelsLike = Math.round(data.main.feels_like);
+            let dateShort = moment(data.dt, 'X').format('ddd, MMM Do');
+            console.log(dateShort)
+            document.getElementById('highsLows').innerHTML = "";
+            document.getElementById('todayDate').innerHTML = finalCityName + " on " + date + ".  <img src=" + "'http://openweathermap.org/img/wn/" + conditionsIcon + "@2x.png' alt='weather conditions'>";
+            document.getElementById('weatherDesc').textContent = "It's " + conditions + " and " + currentTemp + " degrees, although it feels like " + feelsLike + " degrees.";
+            document.getElementById('windDesc').textContent = "Winds are at " + windSpeed + " MPH with gusts up to " + windGust + " MPH.";
+            var minLi = document.createElement('li');
+            minLi.innerHTML = "<strong>Low:</strong>  " + minTemp + " degrees";
+            document.getElementById('highsLows').appendChild(minLi);
+            var maxLi = document.createElement('li');
+            maxLi.innerHTML = "<strong>High:</strong>  " + maxTemp + " degrees";
+            document.getElementById('highsLows').appendChild(maxLi);
+            var humid = document.createElement('li');
+            humid.innerHTML = "<strong>Humidity:</strong>  " + humidity + "%";
+            document.getElementById('highsLows').appendChild(humid);
             
-        };
+            });
+
+        
+
+};
 
