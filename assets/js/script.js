@@ -3,10 +3,10 @@ var citySearch = document.querySelector('#citySearchName');
 var cityListParent = document.querySelector('#possibleCityList');
 var possibleCityList = []
 var city = [];
-var cityName ='';
+var cityName = '';
 var lat = 0;
 var long = 0;
-var lastFiveCity =[];
+var lastFiveCity = [];
 var weatherAPI = "443fd44db44ccc0f0052388e64bdf96f";
 
 // add listener to submit button
@@ -20,7 +20,7 @@ function searchCity(event) {
     city = citySearch.value.trim();
     var cityArray = city.split(',');
     if (cityArray.length === 1) {
-        var cityURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityArray[0] + '&limit=5&appid=' + weatherAPI;
+        var cityURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityArray[0] + '&limit=5&appid=' + weatherAPI;
         fetch(cityURL)
             .then(function (response) {
                 return response.json();
@@ -33,7 +33,7 @@ function searchCity(event) {
                 console.log(data);
             });
     } else {
-        var cityURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + cityArray[0] + ',' + cityArray[1]+ '&limit=5&appid=' + weatherAPI;
+        var cityURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + cityArray[0] + ',' + cityArray[1] + '&limit=5&appid=' + weatherAPI;
         console.log(cityURL);
         fetch(cityURL)
             .then(function (response) {
@@ -50,7 +50,7 @@ function searchCity(event) {
     console.log(cityArray);
     console.log(city);
     // if (city)
-    var cityURL = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid='  + weatherAPI;
+    var cityURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid=' + weatherAPI;
     console.log(cityURL);
     fetch(cityURL)
         .then(function (response) {
@@ -83,7 +83,7 @@ function chooseCity(data) {
         cityListParent.addEventListener("click", getLatLong);
     }
     $('#citySelection').modal()
-   
+
 }
 
 //get latitude and longitude from chosen city
@@ -91,7 +91,7 @@ function getLatLong(city) {
     cityName = city.target.textContent;
     $('#citySelection').modal('hide');
     //cycle through array of cities for a match then pull lat and long
-    for (i=0; i<possibleCityList.length; i++) {
+    for (i = 0; i < possibleCityList.length; i++) {
         if (cityName === possibleCityList[i].name + ", " + possibleCityList[i].state) {
             lat = possibleCityList[i].lat;
             long = possibleCityList[i].lon
@@ -105,36 +105,43 @@ function getLatLong(city) {
 //submit weather request with lat and long
 function latLongWeatherRequest() {
     console.log(lat + "," + long);
-    var cityLatLongURL = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + long + '&units=imperial&appid='  + weatherAPI;
+    var cityLatLongURL = 'http://api.openweathermap.org/data/2.5/forecast/daily?lat=' + lat + '&lon=' + long + '&units=imperial&appid=' + weatherAPI;
     console.log(cityLatLongURL);
     fetch(cityLatLongURL)
         .then(function (response) {
             return response.json();
-            
+
         })
         .then(function (data) {
-            console.log(data);
+
             lastFiveCity.push(data);
-            console.log(lastFiveCity)
+
             localStorage.setItem('fiveWeatherSearches', JSON.stringify(lastFiveCity));
-            for (let i = 0; i<5; i++) {
-                console.log(i)
-                var finalCityName = data.city.name
-                var date = moment(data.list[i].dt, 'X').format('dddd, MMMM Do YYYY');
-                var currentTemp= Math.round(data.list[i].main.temp);
-                console.log(currentTemp);
-                var minTemp= Math.round(data.list[i].main.temp_min);
+            for (let i = 0; i < 6; i++) {
+                console.log(data)
                 console.log(data.list[0])
-                var maxTemp= Math.round(data.list[i].main.temp_max);
-                var humidity= data.list[i].main.humidity;
-                var windSpeed= Math.round(data.list[i].wind.speed);
-                var windGust = Math.round(data.list[i].wind.gust);
-                var chanceOfRain = (data.list[i].pop * 100);
-                var conditions = data.list[i].weather[0].main;
-                var conditionsIcon = data.list[i].weather[0].icon;
-                var feelsLike = Math.round(data.list[i].main.feels_like);
-                if (i===0) {
-                       document.getElementById('todayDate').innerHTML = finalCityName + " on " + date + ".  <img src=" + "'http://openweathermap.org/img/wn/" + conditionsIcon + "@2x.png' alt='weather conditions'>";
+                console.log(data.list[1])
+                console.log(moment(data.list[1].dt, 'X').format('dddd, MMMM Do YYYY'));
+                console.log(moment(data.list[2].dt, 'X').format('dddd, MMMM Do YYYY'));
+                console.log(moment(data.list[3].dt, 'X').format('dddd, MMMM Do YYYY'));
+                console.log(moment(data.list[4].dt, 'X').format('dddd, MMMM Do YYYY'));
+                console.log(moment(data.list[5].dt, 'X').format('dddd, MMMM Do YYYY'));
+                var finalCityName = data.city.name
+                let date = moment(data.list[i].dt, 'X').format('dddd, MMMM Do YYYY');
+                let currentTemp = Math.round(data.list[i].main.temp);  
+                let minTemp = Math.round(data.list[i].main.temp_min);         
+                let maxTemp = Math.round(data.list[i].main.temp_max);
+                let humidity = data.list[i].main.humidity;
+                let windSpeed = Math.round(data.list[i].wind.speed);
+                let windGust = Math.round(data.list[i].wind.gust);
+                let chanceOfRain = (data.list[i].pop * 100);
+                let conditions = data.list[i].weather[0].main;
+                let conditionsIcon = data.list[i].weather[0].icon;
+                let feelsLike = Math.round(data.list[i].main.feels_like);
+                let dateShort = moment(data.list[i].dt, 'X').format('ddd, MMM Do');
+                console.log(dateShort)
+                if (i === 0) {
+                    document.getElementById('todayDate').innerHTML = finalCityName + " on " + date + ".  <img src=" + "'http://openweathermap.org/img/wn/" + conditionsIcon + "@2x.png' alt='weather conditions'>";
                     document.getElementById('weatherDesc').textContent = "It's " + conditions + " and " + currentTemp + " degrees, although it feels like " + feelsLike + " degrees. There's currently a " + chanceOfRain + "% chance of rain.";
                     document.getElementById('windDesc').textContent = "Winds are at " + windSpeed + " MPH with gusts up to " + windGust + " MPH.";
                     var minLi = document.createElement('li');
@@ -144,13 +151,21 @@ function latLongWeatherRequest() {
                     maxLi.innerHTML = "<strong>High:</strong>  " + maxTemp + " degrees";
                     document.getElementById('highsLows').appendChild(maxLi);
                     var humid = document.createElement('li');
-                    humid.innerHTML = "<strong>Humidity:</strong>  " + humidity  + "%";
+                    humid.innerHTML = "<strong>Humidity:</strong>  " + humidity + "%";
                     document.getElementById('highsLows').appendChild(humid);
-                   
 
-                } else {
+
+                } else  {
+                    console.log(dateShort)
+                    console.log(date);
+                    var mainCard = document.getElementById(i);
+                    console.log(mainCard)
+                    var fiveDayCardTitle = mainCard.querySelector('.card-title')
+                    console.log(fiveDayCardTitle)
+                    fiveDayCardTitle.textContent = dateShort;
+                    mainCard.querySelector('.card-text').innerHTML = "<img src=" + "'http://openweathermap.org/img/wn/" + conditionsIcon + "@2x.png' alt='weather conditions'>";
 
                 }
-        }; 
-    });
+            };
+        });
 }
