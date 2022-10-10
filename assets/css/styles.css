@@ -37,3 +37,8 @@ header {
 .pastSearchBtn:hover {
     transform: translate(1em);
 }
+
+.slide {
+    transform: translateX(1000px);
+    transition: all 1s;
+}
