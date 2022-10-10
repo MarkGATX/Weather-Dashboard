@@ -22,7 +22,8 @@
     <main class="container-fluid ">
         <section class="row d-flex justify-content-between vh-100">
             <!-- Search -->
-            <section class="col-3 h-75 d-flex flex-column justify-content-start lightCustom" style="transform:skewY(15deg);">
+            <section class="col-3 h-75 d-flex flex-column justify-content-start lightCustom"
+                style="transform:skewY(15deg);">
                 <form style="transform:skewY(-15deg);position:relative;top:50px;" class="mb-5">
                     <div class="form-group text-light">
                         <label for="citySearchName">
@@ -46,85 +47,59 @@
                         <p class="card-text" id="weatherDesc"></p>
                         <p class="card-text" id="windDesc"></p>
                         <ul id="highsLows" class="list-unstyled"></ul>
-                        
-                    </div>
-                    
-                <!-- 5-day forecast -->
-                <section class="row d-flex justify-content-around h-30 ">
-                    <div class="col-12">
-                        <h2>5-day forecast</h2>
+
                     </div>
 
-                    <div class="card col-2 text-light darkCustom h-50 pl-1 pr-1 pb-2">
-                        <div class="card-body" id="1">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">IMAGE</p>
+                    <!-- 5-day forecast -->
+                    <section class="row d-flex justify-content-around h-30 ">
+                        <div class="col-12">
+                            <h2>5-day forecast</h2>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item darkCustom">An item</li>
-                            <li class="list-group-item darkCustom">A second item</li>
-                            <li class="list-group-item darkCustom">A third item</li>
-                        </ul>
 
-                    </div>
-                    <div class="card col-2 text-light darkCustom h-50 pl-1 pr-1 pb-2">
-                        <div class="card-body" id="2">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">IMAGE</p>
+                        <div class="card col-2 text-light darkCustom h-200 pl-2 pr-2 pb-2">
+                            <div class="card-body p-2" id="1">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">IMAGE</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                            </ul>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item darkCustom">An item</li>
-                            <li class="list-group-item darkCustom">A second item</li>
-                            <li class="list-group-item darkCustom">A third item</li>
-                        </ul>
-
-                    </div>
-                    <div class="card col-2 text-light darkCustom h-50 pl-1 pr-1 pb-2">
-                        <div class="card-body" id="3">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">IMAGE</p>
+                        <div class="card col-2 text-light darkCustom h-200 pl-2 pr-2 pb-2">
+                            <div class="card-body p-2" id="2">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">IMAGE</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                            </ul>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item darkCustom">An item</li>
-                            <li class="list-group-item darkCustom">A second item</li>
-                            <li class="list-group-item darkCustom">A third item</li>
-                        </ul>
-
-                    </div>
-                    <div class="card col-2 text-light darkCustom h-50 pl-1 pr-1 pb-2">
-                        <div class="card-body" id="4">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">IMAGE</p>
+                        <div class="card col-2 text-light darkCustom h-200 pl-2 pr-2 pb-2">
+                            <div class="card-body p-2" id="3">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">IMAGE</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                            </ul>
                         </div>
-                        <ul class="list-group list-group-flush ">
-                            <li class="list-group-item darkCustom">An item</li>
-                            <li class="list-group-item darkCustom">A second item</li>
-                            <li class="list-group-item darkCustom">A third item</li>
-                        </ul>
-
-                    </div>
-                    <div class="card col-2 text-light darkCustom h-50 pl-1 pr-1 pb-2">
-                        <div class="card-body" id="5">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">IMAGE</p>
+                        <div class="card col-2 text-light darkCustom h-200 pl-2 pr-2 pb-2">
+                            <div class="card-body p-2" id="4">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">IMAGE</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                            </ul>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item darkCustom">An item</li>
-                            <li class="list-group-item darkCustom">A second item</li>
-                            <li class="list-group-item darkCustom">A third item</li>
-                        </ul>
-
-
-
-                    </div>
-
-                </section>
-
+                        <div class="card col-2 text-light darkCustom h-200 pl-2 pr-2 pb-2">
+                            <div class="card-body p-2" id="5">
+                                <h5 class="card-title">Card title</h5>
+                                <p class="card-text">IMAGE</p>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                            </ul>
+                        </div>
+                    </section>
             </article>
-
         </section>
 
-        </div>
         <!-- modal for city selection -->
         <div class="modal fade" id="citySelection" tabindex="-1" role="dialog" aria-labelledby="citySelection"
             aria-hidden="true">
