@@ -64,7 +64,8 @@ function searchCity(event) {
         return;
     }
     city = citySearch.value.trim();
-    var cityArray = city.split(',');
+    // console.log(city)
+    city = city.split(' ').join('+');
     var cityURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid=' + weatherAPI;
     fetch(cityURL)
         .then(function (response) {
