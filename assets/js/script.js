@@ -71,13 +71,10 @@ function searchCity(event) {
     }
     city = city.trim();
     city = city.split(' ').join('+');
-    console.log(city)
     var cityURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid=' + weatherAPI;
-    console.log(cityURL)
     citySearch.value = "";
     fetch(cityURL)
         .then(function (response) {
-            console.log(response)
             if (response.type === "cors") {
                 $('#corsError').modal();
                 return;
