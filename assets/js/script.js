@@ -58,7 +58,7 @@ function pullLocalStorage(event) {
 //call weatherapi and find city and weather
 function searchCity(event) {
     event.preventDefault();
-    forecastPane.style.transform = "translateX(3    000px)";
+    forecastPane.style.transform = "translateX(3000px)";
     if (citySearch.value === "") {
         $('#noSearchContentWarning').modal();
         return;
@@ -71,10 +71,17 @@ function searchCity(event) {
     }
     city = city.trim();
     city = city.split(' ').join('+');
+    console.log(city)
     var cityURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid=' + weatherAPI;
+    console.log(cityURL)
     citySearch.value = "";
     fetch(cityURL)
         .then(function (response) {
+            console.log(response)
+            if (response.type === "cors") {
+                $('#corsError').modal();
+                return;
+            }
             return response.json();
         })
         .then(function (data) {
@@ -134,6 +141,11 @@ function getLatLong(city) {
 function latLongWeatherRequest() {
     fetch(cityLatLongURL)
         .then(function (response) {
+            console.log(response.status)
+            // if (response.status === "CORS error") {
+            //     $('#corsError').modal();
+            //     return
+            // }
             return response.json();
 
         })
