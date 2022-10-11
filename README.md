@@ -31,6 +31,8 @@ Once you select your city, a dashboard will slide in with the current conditions
 
 Under the search box, a new button will appear with the name of the city you just searched. In the future you can simply click on that button to get weather information for that city. The page will keep a record of the last five cities you searched for.
 
+NOTE: There seems to be a problem with some international cities. A few don't return valid results and throw an error. If you see that error please try another city.
+
 ___
 
 
@@ -54,6 +56,7 @@ ___
 
 ## Possible Future Changes
 
+- Fix the problem with some international cities. Would probably require refactoring code to use WeatherBit.io exclusively
 - animated background images that correspond to the weather codes to make the page look more dynamic
 
 
