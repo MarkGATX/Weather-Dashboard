@@ -22,9 +22,8 @@
     <main class="container-fluid ">
         <section class="row d-flex justify-content-between vh-100">
             <!-- Search -->
-            <section class="col-3 h-75 d-flex flex-column justify-content-start lightCustom"
-                style="transform:skewY(15deg);">
-                <form style="transform:skewY(-15deg);position:relative;top:50px;" class="mb-5">
+            <section class="col-sm-12 col-md-4 h-75 d-flex flex-column justify-content-start lightCustom skewPos">
+                <form class="mb-5 skewNeg">
                     <div class="form-group text-light">
                         <label for="citySearchName">
                             <h3>Search for a city:</h3>
@@ -33,14 +32,14 @@
                     </div>
                     <button type="submit" id="submit" class="btn btn-primary">Search</button>
                 </form>
-                <h3 class="text-light" style="transform:skewY(-15deg)">Previous Searches:</h3>
-                <div id="pastSearches" style="transform:skewY(-15deg)">
-                    
+                <h3 class="text-light skewNeg" >Previous Searches:</h3>
+                <div id="pastSearches" class="skewNeg" >
+
 
                 </div>
             </section>
 
-            <article class="col-9 pt-5 slide">
+            <article class="col-sm-12 col-md-8 pt-5 slide">
                 <!-- Current conditions -->
                 <div class="col-12 h-30 mb-3 p-2">
                     <div class="card-body border rounded-lg h-100 currentCard">
@@ -57,7 +56,8 @@
                             <h2>5-day forecast</h2>
                         </div>
 
-                        <div class="card col-2 text-light darkCustom h-200 pl-2 pr-2 pb-2">
+                        <div
+                            class="card col-sm-12 col-md-3 col-lg-2 text-light darkCustom h-200 pl-2 pr-2 pb-2 ml-2 mb-2">
                             <div class="card-body p-2" id="1">
                                 <h5 class="card-title">Card title</h5>
                                 <p class="card-text">IMAGE</p>
@@ -65,7 +65,8 @@
                             <ul class="list-group list-group-flush">
                             </ul>
                         </div>
-                        <div class="card col-2 text-light darkCustom h-200 pl-2 pr-2 pb-2">
+                        <div
+                            class="card col-sm-12 col-md-3 col-lg-2 text-light darkCustom h-200 pl-2 pr-2 pb-2 ml-2 mb-2">
                             <div class="card-body p-2" id="2">
                                 <h5 class="card-title">Card title</h5>
                                 <p class="card-text">IMAGE</p>
@@ -73,7 +74,8 @@
                             <ul class="list-group list-group-flush">
                             </ul>
                         </div>
-                        <div class="card col-2 text-light darkCustom h-200 pl-2 pr-2 pb-2">
+                        <div
+                            class="card col-sm-12 col-md-3 col-lg-2 text-light darkCustom h-200 pl-2 pr-2 pb-2 ml-2 mb-2">
                             <div class="card-body p-2" id="3">
                                 <h5 class="card-title">Card title</h5>
                                 <p class="card-text">IMAGE</p>
@@ -81,7 +83,8 @@
                             <ul class="list-group list-group-flush">
                             </ul>
                         </div>
-                        <div class="card col-2 text-light darkCustom h-200 pl-2 pr-2 pb-2">
+                        <div
+                            class="card col-sm-12 col-md-3 col-lg-2 text-light darkCustom h-200 pl-2 pr-2 pb-2 ml-2 mb-2">
                             <div class="card-body p-2" id="4">
                                 <h5 class="card-title">Card title</h5>
                                 <p class="card-text">IMAGE</p>
@@ -89,7 +92,8 @@
                             <ul class="list-group list-group-flush">
                             </ul>
                         </div>
-                        <div class="card col-2 text-light darkCustom h-200 pl-2 pr-2 pb-2">
+                        <div
+                            class="card col-sm-12 col-md-3 col-lg-2 text-light darkCustom h-200 pl-2 pr-2 pb-2 ml-2 mb-2">
                             <div class="card-body p-2" id="5">
                                 <h5 class="card-title">Card title</h5>
                                 <p class="card-text">IMAGE</p>
@@ -124,27 +128,46 @@
                 </div>
             </div>
         </div>
-<!-- No results warning modal -->
+        <!-- No results warning modal -->
         <div class="modal" id="noResultsWarning" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">No results found</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>Check your spelling and try again.</p>
-                </div>
-                <div class="modal-footer">
-                  
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-              </div>
-            </div>
-          </div>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">No results found</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Check your spelling and try again.</p>
+                    </div>
+                    <div class="modal-footer">
 
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- No search content warning -->
+        <div class="modal" id="noSearchContentWarning" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">No results found</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Select one of the previous five searches or type in a city name in the search field.</p>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </main>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

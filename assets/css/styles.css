@@ -38,7 +38,40 @@ header {
     transform: translate(1em);
 }
 
+.skewPos {
+    transform: skewY(15deg);
+    transition: all .3s;
+}
+
+.skewNeg {
+    transform: skewY(-15deg);
+    transition: all .3s;
+    position:relative;
+    top:50px;
+}
+
 .slide {
-    transform: translateX(1000px);
+    transform: translateX(3000px);
     transition: all 1s;
+}
+
+ul {
+    list-style-type: none;
+}
+
+/* media queries */
+@media only screen and (max-width:768px) {
+    .skewPos {
+        transform:none;
+        height:50% !important;
+    }
+
+    .skewNeg {
+        transform:none;
+    }
+
+    .card-text img {
+        width:auto !important;
+    }
+    
 }

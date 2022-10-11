@@ -13,6 +13,8 @@ var cityName = '';
 var lat = 0;
 var long = 0;
 var cityLatLongURL = ""
+
+
 // weather APIs
 var weatherAPI = "443fd44db44ccc0f0052388e64bdf96f";
 var weatherBitAPI = "cee3158b81624efdb69c85c5b782d480";
@@ -34,9 +36,9 @@ if (lastFiveCity === null) {
         var pastSearchParent = document.querySelector('#pastSearches');
         var pastButton = document.createElement('button');
         pastButton.textContent = lastFiveCity[i][0];
-        pastButton.classList.add('w-100', 'pastSearchBtn', 'text-light', 'mb-2', 'p-2', 'rounded', 'font-weight-bold')
+        pastButton.classList.add('w-100', 'pastSearchBtn', 'text-light', 'mb-2', 'p-2', 'rounded', 'font-weight-bold', 'col-sm-12');
+        console.log(pastSearchParent)
         pastSearchParent.appendChild(pastButton);
-
     }
 }
 pastSearchParent.addEventListener("click", pullLocalStorage)
@@ -44,15 +46,14 @@ pastSearchParent.addEventListener("click", pullLocalStorage)
 
 function pullLocalStorage(event) {
     event.preventDefault();
-    forecastPane.style.transform = "translateX(1000px)";
+    forecastPane.style.transform = "translateX(3000px)";
     cityName = event.target.textContent;
     console.log(cityName)
     lastFiveCity = JSON.parse(localStorage.getItem("lastFiveCityLocal"));
     for (let i = 0; i < lastFiveCity.length; i++) {
         if (cityName === lastFiveCity[i][0]) {
             cityLatLongURL = lastFiveCity[i][1];
-            setTimeout(latLongWeatherRequest, 1000)
-
+            setTimeout(latLongWeatherRequest, 500)
             return
         }
     }
@@ -62,7 +63,12 @@ function pullLocalStorage(event) {
 //call weatherapi and find city and weather
 function searchCity(event) {
     event.preventDefault();
-    forecastPane.style.transform = "translateX(1000px)";
+    forecastPane.style.transform = "translateX(3    000px)";
+    console.log(citySearch.value);
+    if (citySearch.value === "") {
+        $('#noSearchContentWarning').modal();
+        return;
+    }
     city = citySearch.value.trim();
     var cityArray = city.split(',');
     var cityURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid=' + weatherAPI;
@@ -75,7 +81,6 @@ function searchCity(event) {
             if (data.length === 0) {
                 $('#noResultsWarning').modal();
                 citySearch.value = "";
-
                 return;
             }
             if (data.length > 1) {
@@ -85,7 +90,6 @@ function searchCity(event) {
                 lat = data[0].lat;
                 long = data[0].lon;
                 latLongWeatherRequest();
-
             };
         });
 }
@@ -105,7 +109,6 @@ function chooseCity(data) {
         cityListParent.addEventListener("click", getLatLong);
     }
     $('#citySelection').modal()
-
 }
 
 //get latitude and longitude from chosen city
@@ -195,6 +198,7 @@ function popWeatherForecast(data) {
         let conditionsIcon = data.data[i].weather.icon;
         let dateShort = moment(data.data[i].ts, 'X').format('ddd, MMM Do');
         if (i === 0) {
+            //populate current conditions
             document.getElementById('todayDate').innerHTML = finalCityName + " on " + date + ".  <img src=" + "'https://www.weatherbit.io/static/img/icons/" + conditionsIcon + ".png' alt='weather conditions'>";
             document.getElementById('weatherDesc').textContent = conditions + " and " + currentTemp + "° fahrenheit. There's currently a " + chanceOfRain + "% chance of rain.";
             document.getElementById('windDesc').textContent = "Winds are at " + windSpeed + " MPH with gusts up to " + windGust + " MPH.";
@@ -211,71 +215,26 @@ function popWeatherForecast(data) {
 
 
         } else {
+            //populate future weather
             var mainCard = document.getElementById(i);
-            var fiveDayCardTitle = mainCard.querySelector('.card-title')
+            var fiveDayCardTitle = mainCard.querySelector('.card-title  ')
             fiveDayCardTitle.textContent = dateShort;
-            mainCard.querySelector('.card-text').innerHTML = "<img src=" + "'https://www.weatherbit.io/static/img/icons/" + conditionsIcon + ".png' alt='weather conditions'>";
+            mainCard.querySelector('.card-text').innerHTML = "<img class='w-100' src=" + "'https://www.weatherbit.io/static/img/icons/" + conditionsIcon + ".png' alt='weather conditions'>";
             var forecastDayHigh = document.createElement('li');
             var forecastNightLow = document.createElement('li');
             var forecastHumid = document.createElement('li');
             var forecastRain = document.createElement('li');
             var forecastWind = document.createElement('li');
             var parentUL = document.getElementById(i);
-            console.log(parentUL.nextElementSibling)
             parentUL.nextElementSibling.innerHTML = "";
             forecastDayHigh.textContent = 'High: ' + (((Math.round(data.data[i].high_temp)) * 9 / 5) + 32) + '°'
             forecastNightLow.textContent = 'Low: ' + (((Math.round(data.data[i].low_temp)) * 9 / 5) + 32) + '°'
-            forecastRain.textContent = 'Rain%: ' + (data.data[i].pop) + '%'
-            forecastHumid.textContent = 'Humidity: ' + data.data[i].rh + '°'
-            forecastWind.textContent = 'Winds: ' + Math.round(data.data[i].wind_spd) + ' MPH'
+            forecastRain.textContent = 'Rain: ' + (data.data[i].pop) + '%'
             parentUL.nextElementSibling.appendChild(forecastDayHigh);
             parentUL.nextElementSibling.appendChild(forecastNightLow);
             parentUL.nextElementSibling.appendChild(forecastRain);
-            parentUL.nextElementSibling.appendChild(forecastHumid);
-            parentUL.nextElementSibling.appendChild(forecastWind);
         }
     }
     forecastPane.style.transform = "translateX(0)";
     return
 }
-
-
-                //POPULATE THE CURRENT DAY WEATHER
-                // console.log(data)
-
-                // var finalCityName = data.city_name
-                // let date = moment(data.dt, 'X').format('dddd, MMMM Do YYYY');
-                // let currentTemp = Math.round(data.main.temp);
-                // let minTemp = Math.round(data.main.temp_min);
-                // let maxTemp = Math.round(data.main.temp_max);
-                // let humidity = data.main.humidity;
-                // let windSpeed = Math.round(data.wind.speed);
-                // let windGust = Math.round(data.wind.gust);
-
-                // let conditions = data.weather[0].description;
-                // let conditionsIcon = data.weather[0].icon;
-                // let feelsLike = Math.round(data.main.feels_like);
-                // let dateShort = moment(data.dt, 'X').format('ddd, MMM Do');
-                // console.log(dateShort)
-                // document.getElementById('highsLows').innerHTML = "";
-                // document.getElementById('todayDate').innerHTML = finalCityName + " on " + date + ".  <img src=" + "'http://openweathermap.org/img/wn/" + conditionsIcon + "@2x.png' alt='weather conditions'>";
-                // document.getElementById('weatherDesc').textContent = "It's " + conditions + " and " + currentTemp + " degrees, although it feels like " + feelsLike + " degrees.";
-                // document.getElementById('windDesc').textContent = "Winds are at " + windSpeed + " MPH with gusts up to " + windGust + " MPH.";
-                // var minLi = document.createElement('li');
-                // minLi.innerHTML = "<strong>Low:</strong>  " + minTemp + " degrees";
-                // document.getElementById('highsLows').appendChild(minLi);
-                // var maxLi = document.createElement('li');
-                // maxLi.innerHTML = "<strong>High:</strong>  " + maxTemp + " degrees";
-                // document.getElementById('highsLows').appendChild(maxLi);
-                // var humid = document.createElement('li');
-                // humid.innerHTML = "<strong>Humidity:</strong>  " + humidity + "%";
-                // document.getElementById('highsLows').appendChild(humid);
-
-                // });
-
-
-
-                // };
-//             }
-//         });
-// }
