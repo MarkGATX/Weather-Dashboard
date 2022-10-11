@@ -64,11 +64,10 @@ function searchCity(event) {
         return;
     }
     city = citySearch.value.trim();
-    // console.log(city)
     city = city.split(' ').join('+');
     var cityURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid=' + weatherAPI;
     fetch(cityURL)
-        .then(function (response) {
+        .then(function (response) {      
             return response.json();
         })
         .then(function (data) {
@@ -129,6 +128,7 @@ function latLongWeatherRequest() {
     fetch(cityLatLongURL)
         .then(function (response) {
             return response.json();
+            
         })
         .then(function (data) {
             //check to see if duplicate name, 

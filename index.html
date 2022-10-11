@@ -109,7 +109,7 @@
         <div class="modal fade" id="citySelection" tabindex="-1" role="dialog" aria-labelledby="citySelection"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
+                <div class="modal-content currentCard">
                     <div class="modal-header">
                         <h5 class="modal-title" id="citySelection">Which city do you mean?</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -160,6 +160,27 @@
                     </div>
                     <div class="modal-body">
                         <p>Select one of the previous five searches or type in a city name in the search field.</p>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cors error -->
+        <div class="modal" id="corsError" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">No results found</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>There was problem with your request. Please try another city.</p>
                     </div>
                     <div class="modal-footer">
 
