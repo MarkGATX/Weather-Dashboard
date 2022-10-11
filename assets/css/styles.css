@@ -27,14 +27,14 @@ header {
     background-color:var(--darkCustom);
 }
 
-.pastSearchBtn {
+.pastSearchBtn, .cityOptionList {
     background-image:linear-gradient(90deg, var(--lightCustom) 0%, var(--darkCustom) 40%);
     border:none !important;
     transition: all .3s;
     
 }
 
-.pastSearchBtn:hover {
+.pastSearchBtn:hover, .cityOptionList:hover {
     transform: translate(1em);
 }
 
@@ -52,7 +52,7 @@ header {
 
 .slide {
     transform: translateX(3000px);
-    transition: all 1s;
+    transition: all .5s;
 }
 
 ul {

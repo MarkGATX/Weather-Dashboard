@@ -1,6 +1,5 @@
 // slide element
 let forecastPane = document.querySelector('.slide');
-console.log(forecastPane)
 
 
 
@@ -21,13 +20,11 @@ var weatherBitAPI = "cee3158b81624efdb69c85c5b782d480";
 
 
 // add listener to submit button
-console.log(document.querySelector('#submit'));
 document.querySelector('#submit').addEventListener("click", searchCity);
 
 
 //populate last 5 city searches and initialize local storage array if none present
 var lastFiveCity = JSON.parse(localStorage.getItem("lastFiveCityLocal"));
-console.log(lastFiveCity)
 if (lastFiveCity === null) {
     lastFiveCity = [];
     localStorage.setItem("lastFiveCityLocal", JSON.stringify("LastFiveCity"))
@@ -37,18 +34,16 @@ if (lastFiveCity === null) {
         var pastButton = document.createElement('button');
         pastButton.textContent = lastFiveCity[i][0];
         pastButton.classList.add('w-100', 'pastSearchBtn', 'text-light', 'mb-2', 'p-2', 'rounded', 'font-weight-bold', 'col-sm-12');
-        console.log(pastSearchParent)
         pastSearchParent.appendChild(pastButton);
     }
 }
 pastSearchParent.addEventListener("click", pullLocalStorage)
 
-
+// Get previous search endpoints
 function pullLocalStorage(event) {
     event.preventDefault();
     forecastPane.style.transform = "translateX(3000px)";
     cityName = event.target.textContent;
-    console.log(cityName)
     lastFiveCity = JSON.parse(localStorage.getItem("lastFiveCityLocal"));
     for (let i = 0; i < lastFiveCity.length; i++) {
         if (cityName === lastFiveCity[i][0]) {
@@ -64,7 +59,6 @@ function pullLocalStorage(event) {
 function searchCity(event) {
     event.preventDefault();
     forecastPane.style.transform = "translateX(3    000px)";
-    console.log(citySearch.value);
     if (citySearch.value === "") {
         $('#noSearchContentWarning').modal();
         return;
@@ -77,7 +71,6 @@ function searchCity(event) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data)
             if (data.length === 0) {
                 $('#noResultsWarning').modal();
                 citySearch.value = "";
@@ -102,9 +95,12 @@ function chooseCity(data) {
     cityListParent.innerHTML = '';
     for (let i = 0; i < data.length; i++) {
         var cityListEl = document.createElement('li');
-        cityListEl.textContent = data[i].name + ", " + data[i].state;
-        console.log(cityListEl);
-        console.log(cityListParent)
+        cityListEl.classList.add('cityOptionList', 'text-light', 'mb-2','p-2', 'rounded');
+        if (data[i].state === undefined) {
+            cityListEl.textContent = data[i].name + ", "  + data[i].country;    
+        } else {
+        cityListEl.textContent = data[i].name + ", " + data[i].state + ", " + data[i].country;
+        };
         cityListParent.appendChild(cityListEl);
         cityListParent.addEventListener("click", getLatLong);
     }
@@ -117,7 +113,7 @@ function getLatLong(city) {
     $('#citySelection').modal('hide');
     //cycle through array of cities for a match then pull lat and long
     for (i = 0; i < possibleCityList.length; i++) {
-        if (cityName === possibleCityList[i].name + ", " + possibleCityList[i].state) {
+        if (cityName === possibleCityList[i].name + ", " + possibleCityList[i].country || cityName === possibleCityList[i].name + ", " + possibleCityList[i].state + ", " + possibleCityList[i].country) {
             lat = possibleCityList[i].lat;
             long = possibleCityList[i].lon
             cityLatLongURL = 'https://api.weatherbit.io/v2.0/forecast/daily?lat=' + lat + '&lon=' + long + '&key=' + weatherBitAPI;
@@ -125,7 +121,6 @@ function getLatLong(city) {
             return;
         }
     }
-    console.log(cityName);
 }
 
 //submit weather request with lat and long and store new local array
@@ -165,7 +160,6 @@ function latLongWeatherRequest() {
             pastButton.textContent = data.city_name;
             pastButton.classList.add('w-100', 'pastSearchBtn', 'text-light', 'mb-2', 'p-2', 'rounded', 'font-weight-bold');
             var buttonListParent = document.getElementById('pastSearches');
-            console.log(buttonListParent.childElementCount)
             //if at least 1 child li, add the next at the beginning of the list
             if (buttonListParent.childElementCount > 0) {
                 pastSearchParent.insertBefore(pastButton, pastSearchParent.firstChild);
@@ -173,7 +167,6 @@ function latLongWeatherRequest() {
                 pastSearchParent.appendChild(pastButton)
             }
             //remove button greater than 5 under search input
-            console.log(buttonListParent.childElementCount)
             if (buttonListParent.childElementCount > 5) {
                 buttonListParent.removeChild(buttonListParent.lastChild);
             }
