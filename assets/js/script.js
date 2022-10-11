@@ -72,6 +72,7 @@ function searchCity(event) {
     city = city.trim();
     city = city.split(' ').join('+');
     var cityURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid=' + weatherAPI;
+    citySearch.value = "";
     fetch(cityURL)
         .then(function (response) {
             return response.json();
