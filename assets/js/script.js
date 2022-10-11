@@ -75,11 +75,12 @@ function searchCity(event) {
     citySearch.value = "";
     fetch(cityURL)
         .then(function (response) {
-            if (response.type === "cors") {
-                $('#corsError').modal();
-                return;
-            }
+            // if (response.type === "cors") {
+            //     $('#corsError').modal();
+            //     return;
+            // } else {
             return response.json();
+            // }
         })
         .then(function (data) {
             if (data.length === 0) {
@@ -93,6 +94,7 @@ function searchCity(event) {
             } else {
                 lat = data[0].lat;
                 long = data[0].lon;
+                cityLatLongURL = 'https://api.weatherbit.io/v2.0/forecast/daily?lat=' + lat + '&lon=' + long + '&key=' + weatherBitAPI;
                 latLongWeatherRequest();
             };
         });
@@ -138,7 +140,6 @@ function getLatLong(city) {
 function latLongWeatherRequest() {
     fetch(cityLatLongURL)
         .then(function (response) {
-            console.log(response.status)
             // if (response.status === "CORS error") {
             //     $('#corsError').modal();
             //     return
