@@ -63,11 +63,17 @@ function searchCity(event) {
         $('#noSearchContentWarning').modal();
         return;
     }
-    city = citySearch.value.trim();
+    // city = citySearch.value.trim();
+    city = citySearch.value;
+    if (city.includes('city') || city.includes('City')) {
+        let minusCity = city.replace("City", " ");
+        city = minusCity;
+    }
+    city = city.trim();
     city = city.split(' ').join('+');
     var cityURL = 'https://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=5&appid=' + weatherAPI;
     fetch(cityURL)
-        .then(function (response) {      
+        .then(function (response) {
             return response.json();
         })
         .then(function (data) {
@@ -95,11 +101,11 @@ function chooseCity(data) {
     cityListParent.innerHTML = '';
     for (let i = 0; i < data.length; i++) {
         var cityListEl = document.createElement('li');
-        cityListEl.classList.add('cityOptionList', 'text-light', 'mb-2','p-2', 'rounded');
+        cityListEl.classList.add('cityOptionList', 'text-light', 'mb-2', 'p-2', 'rounded');
         if (data[i].state === undefined) {
-            cityListEl.textContent = data[i].name + ", "  + data[i].country;    
+            cityListEl.textContent = data[i].name + ", " + data[i].country;
         } else {
-        cityListEl.textContent = data[i].name + ", " + data[i].state + ", " + data[i].country;
+            cityListEl.textContent = data[i].name + ", " + data[i].state + ", " + data[i].country;
         };
         cityListParent.appendChild(cityListEl);
         cityListParent.addEventListener("click", getLatLong);
@@ -128,7 +134,7 @@ function latLongWeatherRequest() {
     fetch(cityLatLongURL)
         .then(function (response) {
             return response.json();
-            
+
         })
         .then(function (data) {
             //check to see if duplicate name, 
@@ -185,8 +191,8 @@ function popWeatherForecast(data) {
         let minTemp = ((Math.round(data.data[i].low_temp)) * 9 / 5) + 32;
         let maxTemp = ((Math.round(data.data[i].high_temp)) * 9 / 5) + 32;
         let humidity = data.data[i].rh;
-        let windSpeed = (Math.round(data.data[i].wind_spd)) * 2.237;
-        let windGust = (Math.round(data.data[i].wind_gust_spd)) * 2.237;
+        let windSpeed = (Math.round((data.data[i].wind_spd) * 2.237));
+        let windGust = (Math.round((data.data[i].wind_gust_spd) * 2.237));
         let chanceOfRain = (data.data[i].pop);
         let conditions = data.data[i].weather.description;
         let conditionsIcon = data.data[i].weather.icon;
