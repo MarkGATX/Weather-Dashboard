@@ -6,6 +6,11 @@
 
 
 /* global */
+html {
+    overflow-x:hidden;
+}
+
+
 body {
     color:var(--darkCustom) !important;
 }
