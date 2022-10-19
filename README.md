@@ -66,7 +66,7 @@ ___
 
 
 ## Credits
-
+Special thanks to [AWoelf](https://github.com/awoelf) for the amazing improved icons to use for the weather app. These are high-quality .png files that are vastly superior to the ones provided natively from Weatherbit.io. [I'd highly recommend looking for these if you need icons for your app.](https://github.com/awoelf/weather-tips-app)
 
 The original visual concept of the dashboard was created by staff of the UT Austin Full Stack Development Bootcamp. Thanks to Leah, Ian, Negin, Diem, and all the students who work with me daily to keep improving. 
 
