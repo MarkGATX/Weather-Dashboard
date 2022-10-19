@@ -210,8 +210,7 @@ function popWeatherForecast(data) {
         let dateShort = moment(data.data[i].ts, 'X').format('ddd, MMM Do');
         if (i === 0) {
             //populate current conditions
-            // document.getElementById('todayDate').innerHTML = finalCityName + " on " + date + ".  <img src=" + "'https://www.weatherbit.io/static/img/icons/" + conditionsIcon + ".png' alt='weather conditions'>";
-            document.getElementById('todayDate').innerHTML = finalCityName + " on " + date + ".  <img src=" + "'https://github.com/awoelf/weather-tips-app/tree/main/assets/icons/" + conditionsIcon + ".png' alt='weather conditions'>";
+            document.getElementById('todayDate').innerHTML = finalCityName + " on " + date + ".  <img class='w-25' src=" + "'https://res.cloudinary.com/awoelf/image/upload/weather-tips/" + conditionsIcon + ".png' alt='weather conditions'>";
             document.getElementById('weatherDesc').textContent = conditions + " and " + currentTemp + "° fahrenheit. There's currently a " + chanceOfRain + "% chance of rain.";
             document.getElementById('windDesc').textContent = "Winds are at " + windSpeed + " MPH with gusts up to " + windGust + " MPH.";
             document.getElementById('highsLows').innerHTML = "";
@@ -231,8 +230,7 @@ function popWeatherForecast(data) {
             var mainCard = document.getElementById(i);
             var fiveDayCardTitle = mainCard.querySelector('.card-title  ')
             fiveDayCardTitle.textContent = dateShort;
-            // mainCard.querySelector('.card-text').innerHTML = "<img class='w-100' src=" + "'https://www.weatherbit.io/static/img/icons/" + conditionsIcon + ".png' alt='weather conditions'>";
-            mainCard.querySelector('.card-text').innerHTML = "<img class='w-100' src=" + "'https://github.com/awoelf/weather-tips-app/tree/main/assets/icons/" + conditionsIcon + ".png' alt='weather conditions'>";
+            mainCard.querySelector('.card-text').innerHTML = "<img class='w-75' src=" + "'https://res.cloudinary.com/awoelf/image/upload/weather-tips/" + conditionsIcon + ".png' alt='weather conditions'>";
 
 
             var forecastDayHigh = document.createElement('li');
