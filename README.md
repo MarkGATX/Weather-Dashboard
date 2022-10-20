@@ -31,7 +31,6 @@ Once you select your city, a dashboard will slide in with the current conditions
 
 Under the search box, a new button will appear with the name of the city you just searched. In the future you can simply click on that button to get weather information for that city. The page will keep a record of the last five cities you searched for.
 
-NOTE: There seems to be a problem with some international cities. A few don't return valid results and throw an error. If you see that error please try another city.
 
 ___
 
@@ -39,6 +38,8 @@ ___
 ## Changes Made and Lessons Learned
 
 - The original layout in the challenge documentation stayed as the inspiration for the overall look of the page. I did change the color scheme in some places and I also did some simple skey transformations of some elements to get the diagonal lines in the search area. This is only seen at larger screen sizes since it took up too much vertical space at mobile sizes.
+
+- I conversations with a classmate,  [AWoelf](https://github.com/awoelf) mentioned she had developed some higher resolution weather icons for use with weatherbit.io. I immediately got good links and switched them out for a distinct improvement in the overall look and feel.
 
 - The assignment was to use the [OpenWeatherMap API](https://openweathermap.org/api) to populate a forecast for the weather. After buidling the code base to use the response from OpenWeather, I realized the temperatures and forecasts didn't look right. I quickly realized the response was for every three hours, not every day. Access to a daily forecast seems to be behind a paid plan. There may be a way to pull the data but it's not straightforward and my OCD tendencies wouldn't let me just pull data as if it applied to the whole day. So I found another weather API that has reasonable limits on its use. Since I already had the code in place to leverage OpenWeather to get latitude and longitude for cities, I simply changed the endpoint of the forecast to [Weatherbit.io](https://weatherbit.io). The response works well and I personally feel the API is simpler to use, as long as my app doesn't get extremely popular and I suddenly find myself paying for it.
 
